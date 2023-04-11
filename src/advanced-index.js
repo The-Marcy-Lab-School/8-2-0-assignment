@@ -1,6 +1,6 @@
 const {
   createTable,
-  dropTable,
+  truncate,
   closeConnection,
   insertMultipleBooks,
 } = require('./starter-queries');
@@ -30,7 +30,7 @@ const main = async () => {
 
   // We drop the table so we can recreate it and run the queries again
   // without the database getting too unwieldy
-  await dropTable();
+  await truncate();
 
   // We have to close the connection when we're done
   closeConnection();
