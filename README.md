@@ -12,6 +12,7 @@
   - [selectAllTitlesAndGenres](#selectalltitlesandgenres)
   - [selectAllBooksOver250Pages](#selectallbooksover250pages)
   - [insertDuneBook](#insertdunebook)
+  - [updateShortBooksToMovies](#updateshortbookstomovies)
   - [deleteDuneBook](#deletedunebook)
 - [Advanced Query Questions](#advanced-query-questions)
   - [countNumberOfBooks](#countnumberofbooks)
@@ -160,6 +161,13 @@ pages = 500,
 is_movie = false
 ```
 
+Don't forget about `RETURNING *`!
+
+## updateShortBooksToMovies
+Write a query that sets `is_movie` to `true` for any book that has fewer than 150 pages.
+
+Don't forget about `RETURNING *`!
+
 ## deleteDuneBook
 Write a query that deletes the Dune book that you just added.
 
@@ -177,7 +185,7 @@ Write are query that returns *just* the number of books in the table. The expect
 There's a special SQL function that does just that, can you find it?
 
 ## selectAllLongOrMovieBooks
-Write a query that returns all columns on all books that have *either* 250+ pages, *or* have is_movie set to `true`.
+Write a query that returns all columns on all books that have *either* 250+ pages, *or* have `is_movie` set to `true`.
 
 
 ## selectBooksBetween150And300Pages
@@ -194,7 +202,7 @@ write a query that returns all the columns on the one book in the DB that has th
 Note: Again, while you can query for all the books, and then use JS to find the longest, please don't. That's called "over fetching" from the DB, we don't need all the books, just one!
 
 ## aliasIsMovie
-Write a query that returns only the title and is_movie columns, but with a twist. Instead of the ugly `is_movie` name, lets alias it in the query to be called `Already Filmed`.
+Write a query that returns only the title and `is_movie` columns, but with a twist. Instead of the ugly `is_movie` name, lets alias it in the query to be called `Already Filmed`.
 
 ## countBooksInGenres
 Write a query that returns only the count of each genre of book in the table. So the final JS output on the started data would be:
