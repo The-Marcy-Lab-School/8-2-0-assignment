@@ -26,8 +26,8 @@ const main = async () => {
   // await safeDynamicQuery(2);
   // await multipleDynamicParamsQuery(100, true);
 
-  // We drop the table so we can recreate it and run the queries again
-  // without the database getting too unwieldy
+  // We remove the table rows (not the table) so we can run the queries again
+  // without the database getting too big
   await truncate();
 
   // We have to close the connection when we're done
