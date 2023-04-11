@@ -4,6 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "lint": "eslint .",
+    "preinstall": "cp hooks/pre-commit .git/hooks/pre-commit",
     "basic": "nodemon src/basic-index.js",
     "advanced": "nodemon src/advanced-index.js",
     "dynamic": "nodemon src/dynamic-index.js",
