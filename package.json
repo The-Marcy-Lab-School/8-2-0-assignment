@@ -1,0 +1,31 @@
+{
+  "name": "intro-to-sql-practice",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "basic": "nodemon src/basic-index.js",
+    "advanced": "nodemon src/advanced-index.js",
+    "dynamic": "nodemon src/dynamic-index.js",
+    "test": "jest --coverage --runInBand",
+    "test:wa": "jest ./tests/advanced.spec.js --watchAll --runInBand",
+    "test:wb": "jest ./tests/basic.spec.js --watchAll --runInBand"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "jest": "^29.5.0",
+    "knex": "^2.4.2",
+    "pg": "^8.10.0",
+    "score-tests": "^1.0.0",
+    "sqlite3": "^5.1.6"
+  },
+  "devDependencies": {
+    "eslint": "^8.37.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.27.5",
+    "nodemon": "^2.0.22"
+  }
+}

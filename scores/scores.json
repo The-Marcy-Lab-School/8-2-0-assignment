@@ -1,0 +1,57 @@
+{
+  "idToTestNameHash": {
+    "AdQu1": "Advanced Queries Counts the number of books",
+    "AdQu2": "Advanced Queries Selects all long or movie books",
+    "AdQu3": "Advanced Queries Selects books between 150 and 300 pages",
+    "AdQu4": "Advanced Queries Orders books by pages",
+    "AdQu5": "Advanced Queries Selects the longest book",
+    "AdQu6": "Advanced Queries Aliases is_movie to \"Already Filmed\"",
+    "AdQu7": "Advanced Queries Counts the number of books in each genre",
+    "BaQu1": "Basic Queries Selects all books",
+    "BaQu2": "Basic Queries Selects all titles and genres",
+    "BaQu3": "Basic Queries Selects all books over 250 pages",
+    "BaQu4": "Basic Queries Inserts Dune book",
+    "BaQu5": "Basic Queries Updates short books to movies",
+    "BaQu6": "Basic Queries Deletes Dune book"
+  },
+  "testNameToIdHash": {
+    "Advanced Queries Counts the number of books": "AdQu1",
+    "Advanced Queries Selects all long or movie books": "AdQu2",
+    "Advanced Queries Selects books between 150 and 300 pages": "AdQu3",
+    "Advanced Queries Orders books by pages": "AdQu4",
+    "Advanced Queries Selects the longest book": "AdQu5",
+    "Advanced Queries Aliases is_movie to isMovie": "AdQu6",
+    "Advanced Queries Counts the number of books in each genre": "AdQu7",
+    "Basic Queries Selects all books": "BaQu1",
+    "Basic Queries Selects all titles and genres": "BaQu2",
+    "Basic Queries Selects all books over 250 pages": "BaQu3",
+    "Basic Queries Inserts Dune book": "BaQu4",
+    "Basic Queries Updates short books to movies": "BaQu5",
+    "Basic Queries Deletes Dune book": "BaQu6",
+    "Advanced Queries Aliases is_movie to \"Already Filmed\"": "AdQu6"
+  },
+  "testScores": {
+    "Advanced Queries": {
+      "AdQu1": 0,
+      "AdQu2": 0,
+      "AdQu3": 0,
+      "AdQu4": 0,
+      "AdQu5": 0,
+      "AdQu6": 0,
+      "AdQu7": 0
+    },
+    "Basic Queries": {
+      "BaQu1": 0,
+      "BaQu2": 0,
+      "BaQu3": 0,
+      "BaQu4": 0,
+      "BaQu5": 0,
+      "BaQu6": 0
+    }
+  },
+  "humanReadable": {
+    "Advanced Queries": "0/7",
+    "finalTestScore": "FINAL SCORE: 0/13",
+    "Basic Queries": "0/6"
+  }
+}
