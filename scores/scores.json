@@ -31,27 +31,12 @@
     "Advanced Queries Aliases is_movie to \"Already Filmed\"": "AdQu6"
   },
   "testScores": {
-    "Advanced Queries": {
-      "AdQu1": 0,
-      "AdQu2": 0,
-      "AdQu3": 0,
-      "AdQu4": 0,
-      "AdQu5": 0,
-      "AdQu6": 0,
-      "AdQu7": 0
-    },
-    "Basic Queries": {
-      "BaQu1": 0,
-      "BaQu2": 0,
-      "BaQu3": 0,
-      "BaQu4": 0,
-      "BaQu5": 0,
-      "BaQu6": 0
-    }
+    "Advanced Queries": {},
+    "Basic Queries": {}
   },
   "humanReadable": {
-    "Advanced Queries": "0/7",
-    "finalTestScore": "FINAL SCORE: 0/13",
-    "Basic Queries": "0/6"
+    "Advanced Queries": "0/0",
+    "finalTestScore": "FINAL SCORE: 0/0",
+    "Basic Queries": "0/0"
   }
 }
