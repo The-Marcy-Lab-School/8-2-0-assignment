@@ -17,7 +17,7 @@ const dropTable = async () => {
 };
 
 const truncate = async () => {
-  await knex.raw(`TRUNCATE TABLE books;`);
+  await knex.raw(`DELETE FROM books;`);
 };
 
 const closeConnection = async () => {
