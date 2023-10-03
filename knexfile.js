@@ -2,6 +2,8 @@ module.exports = {
   development: {
     client: 'pg',
     connection: {
+      connectionString: process.env.PG_CONNECTION_STRING,
+      ssl: { rejectUnauthorized: false },
       host: process.env.PG_HOST || '127.0.0.1',
       port: process.env.PG_PORT || 5432,
       user: process.env.PG_USER || 'postgres',
