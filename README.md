@@ -39,20 +39,22 @@ PG_PASSWORD='postgres'
 PG_DATABASE='postgres'
 ```
 
-These values will get consumed by our `knexfile.js` and tell `knex` exactly how to talk to our database (again, don't worry about the knexfile just yet).
+These values are used by Knex (we'll learn exactly how later) to enable your Node.js code to connect to your Postgres database.
 
 Now just make sure you run `npm install` and you should be good to go!
 
 ## Running Queries
-There are 4 "main" files: `basic-index.js` and  `advanced-index.js` and then `basic-queries.js` and `advanced-queries.js`. You will edit the queries that are defined in the `-queries` files, and then you can run them with the `-index.js` files. However, there are also some starter queries that you don't have to touch. These queries will create a table, populate it with a few rows, and then at the end, drop the table. Feel free to edit the behavior of the `-index.js` files by commenting out the various functions (except `closeConnection`, leave that in always).
+There are 2 pairs of files you'll be working with: `basic-index.js` and `basic-queries.js`, and `advanced-index.js` and `advanced-queries.js`. You will edit the queries that are defined in the `-queries` files, and then you can run them with the `-index.js` files. Feel free to edit the behavior of the `-index.js` files by commenting out the various functions (except `closeConnection`, leave that in always).
 
-Now, most likely you'll experiment with your queries using the `psql` command line tool. But once you have what you're looking for, copy the query into one of the `-queries.js` functions:
+There are also some starter queries that you shouldn't have to touch. These queries will create a table, populate it with a few rows, and then at the end, drop the table.
+
+You'll most likely want to experiment with your queries using the `psql` command line tool. But once you are able to query for what you're looking for, copy the query into one of the `-queries.js` functions:
 
 ```js
 const selectAllBooks = async () => {
   const query = `RIGHT HERE`;
 
-  // const { rows } = await knex.raw(query);
+  // const { rows } = await knex.raw(query);  // <-- uncomment this stuff to execute the query
   // console.log('All books:', rows);
   // return rows;
 };
@@ -60,7 +62,9 @@ const selectAllBooks = async () => {
 
 Then, uncomment out the `knex` logic to run the query.
 
-You can experiment with the queries by running the `-index.js` files (`npm run basic` and `npm run advanced`), but the test files also work great (see [Testing](#testing))! Just know that all our files talk to the same db, so when you run the JS files, your table data will be cleared afterwards. This is to keep our tests "atomic" meaning one doesn't rely on another being run first (a common problem with sloppy DB tests).
+You can experiment with the queries by running the `-index.js` files (`npm run basic` and `npm run advanced`), but using the test files will also work well (see [Testing](#testing))! 
+
+Just know that all our files talk to the same database, so when you run the JS files, your table data will be cleared afterward. This is to keep our tests "atomic" meaning one doesn't rely on another being run first (a common problem with sloppy DB tests).
 
 `dynamic-queries.js` and  `dynamic-index.js` are also fun, but we aren't testing you on them yet. If you finish everything, check them out last.
 
@@ -83,16 +87,16 @@ we want to split up;
 };
 ```
 
-If you want to do this on longer queries, it just makes it easier to read.
+If you want to do this on longer queries, it is easier to read.
 
 ## Returning Rows
-On `SELECTS`, you automatically get rows back, that's the whole point of the query. However, on `UPDATE` and `INSERT`, that's not the default. In order to avoid having to make a create query, and then *another* selector query, just add this to the end of the create queries:
+On `SELECT` queries, you automatically get rows back from the database, that's the whole point of the query. However, on `UPDATE` and `INSERT`, that's not the default behavior. In order to avoid having to make a create or update query, and then *another* selector query, just add this to the end of the create queries:
 
 ```SQL
 RETURNING *;
 ```
 
-By putting this at the end of the query, you're telling the DB, "Hey, those rows you just updated/created? Please give them back to me." This is super important for us,specifically because our tests are looking at what we created.
+By putting this at the end of the query, you're telling the DB, "Hey, those rows you just updated/created? Please give them back to me." This is super important for us specifically because our tests are looking at what we created.
 
 And it's already written for you, but `knex` will always return a `rows` array (even if there's only one result) from each query it makes. That's what we need to return for our tests. Except for `DELETE`, where you can see we use `rowCount` instead, but that's because we deleted our records!
 
