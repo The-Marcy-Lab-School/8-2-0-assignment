@@ -48,7 +48,7 @@ Finally, create a new database called `sql_practice`.
 
 ### Knex Setup
 
-In this assignment, we're using a package called [knex](https://knexjs.org) (sounds like "connect" but "conneX"). Knex is a tool that let's us execute SQL queries using JavaScript.
+In this assignment, we're using a package called [knex](https://knexjs.org) (sounds like "connects"). Knex is a tool that let's us connect a JavaScript file to a database, and execute SQL queries.
 
 In order for Knex to connect to our database, we need to provide:
 
@@ -88,9 +88,7 @@ CREATE TABLE books (
 );
 ```
 
-This table is created by the file `starter-queries.js` which also inserts 8 books to the table. 
-
-> ⚠️ One of the practice questions is also an `INSERT` query, so please no peaking until you try it yourself. 
+This table is created by the file `starter-queries.js` which also inserts 8 books to the table (One of the practice questions is also an `INSERT` query, so please no peeking at this file until you try it yourself.)
 
 This is what `knex` would return if you queried for all the books after than initial `INSERT`:
 
@@ -119,7 +117,7 @@ There are 2 pairs of files you'll be working with:
 
 You will edit the queries defined in the `-queries` files and those will be the files that are tested.
 
-In those files, you will find functions with a `query` string and some commented code. For each function, fill out the `query` string and then uncomment the `knex` logic to run the query.
+In those files, you will find functions with a `query` string and some commented code. For each function, fill out the `query` string and then uncomment the `knex` logic to run the query (try completing the first one now!).
 
 ```js
 const selectAllBooks = async () => {
@@ -147,7 +145,7 @@ const deleted = await deleteDuneBook();
 console.log('All Books:', allBooks);
 ```
 
-Once you are satisfied with the result, confirm your work by running the provided tests (see [Testing](#testing))! 
+Run this file using `node src/basic-index.js` or running `npm run basic` and you should see the list of all the books in the table.
 
 > **Why is the data being cleared from the database?**
 >
