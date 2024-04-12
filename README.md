@@ -3,36 +3,36 @@
 Welcome to the world of SQL! With this assignment you'll step through some of the basic queries, some more complex ones, and finally, a few dynamic examples. But this isn't just plain SQL, we're running our queries with JavaScript!
 
 **Table of Contents:**
-- [Getting Started](#getting-started)
+- [Setup](#setup)
   - [Postgres Setup](#postgres-setup)
   - [Knex Setup](#knex-setup)
-  - [How to work on this assignment](#how-to-work-on-this-assignment)
-  - [Why is the data being cleared?](#why-is-the-data-being-cleared)
+- [The Assignment](#the-assignment)
+  - [Dataset](#dataset)
+  - [What you will be writing](#what-you-will-be-writing)
   - [Writing Multiline Queries](#writing-multiline-queries)
-  - [Returning Rows](#returning-rows)
-  - [Starter Data](#starter-data)
   - [Testing](#testing)
-  - [One Last Warning](#one-last-warning)
 - [Basic Query Questions](#basic-query-questions)
-  - [selectAllBooks](#selectallbooks)
-  - [selectAllTitlesAndGenres](#selectalltitlesandgenres)
-  - [selectAllBooksOver250Pages](#selectallbooksover250pages)
-  - [insertDuneBook](#insertdunebook)
-  - [updateShortBooksToMovies](#updateshortbookstomovies)
-  - [deleteDuneBook](#deletedunebook)
+  - [1) selectAllBooks](#1-selectallbooks)
+  - [2) selectAllTitlesAndGenres](#2-selectalltitlesandgenres)
+  - [3) selectAllBooksOver250Pages](#3-selectallbooksover250pages)
+  - [4) insertDuneBook](#4-insertdunebook)
+  - [5) updateShortBooksToMovies](#5-updateshortbookstomovies)
+  - [6) deleteDuneBook](#6-deletedunebook)
 - [Advanced Query Questions](#advanced-query-questions)
-  - [countNumberOfBooks](#countnumberofbooks)
-  - [selectAllLongOrMovieBooks](#selectalllongormoviebooks)
-  - [selectBooksBetween150And300Pages](#selectbooksbetween150and300pages)
-  - [orderBooksByPages](#orderbooksbypages)
-  - [selectLongestBooks](#selectlongestbooks)
-  - [aliasIsMovie](#aliasismovie)
-  - [countBooksInGenres](#countbooksingenres)
+  - [7) countNumberOfBooks](#7-countnumberofbooks)
+  - [8) selectAllLongOrMovieBooks](#8-selectalllongormoviebooks)
+  - [9) selectBooksBetween150And300Pages](#9-selectbooksbetween150and300pages)
+  - [10) orderBooksByPages](#10-orderbooksbypages)
+  - [11) selectLongestBooks](#11-selectlongestbooks)
+  - [12) aliasIsMovie](#12-aliasismovie)
+  - [13) countBooksInGenres](#13-countbooksingenres)
 - [Dynamic Queries](#dynamic-queries)
   - [The dangers of unescaped SQL](#the-dangers-of-unescaped-sql)
   - [Parameterized queries](#parameterized-queries)
 
-## Getting Started
+## Setup
+
+Clone down your assignment repo, `cd` into it and run `npm install`
 
 ### Postgres Setup
 
@@ -70,76 +70,13 @@ PG_DATABASE='sql_practice'
 
 These values are used by Knex in your Node application to connect to your Postgres database, thus letting you send SQL queries to your database using JavaScript.
 
-Now just make sure you run `npm install` and you should be good to go!
+**Before you continue:** To test that this works, run `node src/basic-index.js`. You should see `All Books: undefined` and no errors.
 
-### How to work on this assignment
-There are 2 pairs of files you'll be working with: 
-1. `basic-queries.js` and `basic-index.js`
-2. `advanced-queries.js` and `advanced-index.js`
+## The Assignment
 
-You will edit the queries defined in the `-queries` files and those will be the files that are tested.
+### Dataset
 
-You can experiment with your queries using the `psql` command line tool or Tableplus's SQL editor. But once you are able to query for what you're looking for, copy the query into one of the `-queries.js` functions:
-
-```js
-const selectAllBooks = async () => {
-  const query = `RIGHT HERE`;
-
-  // ⬇️ uncomment this stuff to execute the query
-  // const { rows } = await knex.raw(query);  
-  // console.log('All books:', rows);
-  // return rows;
-};
-```
-
-Then, uncomment out the `knex` logic to run the query.
-
-You can experiment with the queries by running the `-index.js` files (`npm run basic` and `npm run advanced`), but using the test files will also work well (see [Testing](#testing))! 
-
-Feel free to edit the behavior of the `-index.js` files by commenting out the various functions (except `closeConnection`, leave that in always). 
-
-There are also some starter queries that you shouldn't touch. These queries will create a table, populate it with a few rows, and then at the end, drop the table.
-
-Lastly, `dynamic-queries.js` and  `dynamic-index.js` are also fun, but we aren't testing you on them yet. If you finish everything, check them out last.
-
-### Why is the data being cleared?
-
-Just know that all our files talk to the same database, so when you run the JS files, your table data will be cleared afterward. This is to keep our tests "atomic" meaning one doesn't rely on another being run first (a common problem with sloppy DB tests).
-
-### Writing Multiline Queries
-You only have to edit `basic-queries.js` and `advanced-queries.js`. `dynamic-queries.js` is just a reference for how `knex` deals with dynamic variables in queries. Now, that means that none of the basic or advanced queries are going to be dynamic, so why are we using backticks? Easy! Because backticks allow us to break up lines:
-
-```js
-const selectAllBooks = async () => {
-  const query = `
-    SELECT *
-    FROM books
-    And some other
-    really long SQL stuff that
-    we want to split up;
-  `;
-
-  const { rows } = await knex.raw(query);
-  console.log('All books:', rows);
-  return rows;
-};
-```
-
-If you want to do this on longer queries, it is easier to read.
-
-### Returning Rows
-On `SELECT` queries, you automatically get rows back from the database, that's the whole point of the query. However, on `UPDATE` and `INSERT`, that's not the default behavior. In order to avoid having to make a create or update query, and then *another* selector query, just add this to the end of the create queries:
-
-```SQL
-RETURNING *;
-```
-
-By putting this at the end of the query, you're telling the DB, "Hey, those rows you just updated/created? Please give them back to me." This is super important for us specifically because our tests are looking at what we created.
-
-And it's already written for you, but `knex` will always return a `rows` array (even if there's only one result) from each query it makes. That's what we need to return for our tests. Except for `DELETE`, where you can see we use `rowCount` instead, but that's because we deleted our records!
-
-### Starter Data
-Like I said earlier, `starter-queries.js` is responsible for creating our tables, inserting our various books, and then dropping the table to clean up. Here's what our table will look like.
+For this assignment, you will be working with a table called `books`. Here's what our table will look like.
 
 ```sql
 CREATE TABLE books (
@@ -151,7 +88,11 @@ CREATE TABLE books (
 );
 ```
 
-The original insert query then adds 8 books to the table. Now, one of the practice questions is also an `INSERT` query, so please no peaking until you try it yourself. But anyway, this is what `knex` would return if you queried for all the books after than initial `INSERT`:
+This table is created by the file `starter-queries.js` which also inserts 8 books to the table. 
+
+> ⚠️ One of the practice questions is also an `INSERT` query, so please no peaking until you try it yourself. 
+
+This is what `knex` would return if you queried for all the books after than initial `INSERT`:
 
 ```js
 [
@@ -167,7 +108,77 @@ The original insert query then adds 8 books to the table. Now, one of the practi
 ```
 This is the data the rest of your queries will work with, so make sure you understand what it is!
 
-Remember, you can *see* what data the test files are looking for. So if you're ever confused about exactly what you should be returning, just check the tests!
+Remember, you can always *see* the exact data that the tests are looking for. So if you're ever confused about what your query functions should be returning, just check the tests!
+
+### What you will be writing
+
+There are 2 pairs of files you'll be working with: 
+1. `basic-queries.js` and `basic-index.js`
+2. `advanced-queries.js` and `advanced-index.js`
+3. `dynamic-queries.js` and  `dynamic-index.js` are also fun, but we aren't testing you on them yet. If you finish everything, check them out last.
+
+You will edit the queries defined in the `-queries` files and those will be the files that are tested.
+
+In those files, you will find functions with a `query` string and some commented code. For each function, fill out the `query` string and then uncomment the `knex` logic to run the query.
+
+```js
+const selectAllBooks = async () => {
+  const query = `RIGHT HERE`;
+
+  // ⬇️ uncomment this stuff to execute the query
+  // const { rows } = await knex.raw(query);  
+  // return rows;
+};
+```
+
+To experiment with the queries you've written, you can run the corresponding `-index.js` files (check out the `npm run basic` and `npm run advanced` commands in `package.json`). Feel free to add `console.log` statements to this file so that you can test the output of each of your query functions. We've already provided a `console.log` for the `allBooks` value:
+
+```js
+// ---- YOUR WORK ----
+// Core queries, get these first
+const allBooks = await selectAllBooks();
+const allTitlesAndGenres = await selectAllTitlesAndGenres();
+const allLongBooks = await selectAllBooksOver250Pages();
+const duneBook = await insertDuneBook();
+const updatedShortMovies = await updateShortBooksToMovies();
+const deleted = await deleteDuneBook();
+
+// Test your functions by console logging the returned value.
+console.log('All Books:', allBooks);
+```
+
+Once you are satisfied with the result, confirm your work by running the provided tests (see [Testing](#testing))! 
+
+> **Why is the data being cleared from the database?**
+>
+> If you are running these query files and you open up TablePlus, you may notice that the data isn't showing up at all in the `sql_practice` database. That's because we delete the tables at the end of each `-index.js` file (using the `truncate()` function). This is because all of our files use the same database and by deleting the table after one file finishes, and then recreating it again from scratch when the next file runs, we can keep our tests "atomic" — meaning the order of our file execution doesn't matter (a common problem with sloppy DB tests).
+
+### Writing Multiline Queries
+You may notice that in the `-queries.js` files, we are using backticks. Why? Because backticks allow us to break up lines:
+
+```js
+const selectAllBooks = async () => {
+  const query = `
+    SELECT *
+    FROM books
+    WHERE pages > 50
+    AND genre = "Classic"
+    OR genre = "Sci Fi"
+    RETURNING *;
+  `;
+
+  const { rows } = await knex.raw(query);
+  return rows;
+};
+```
+
+Each line begins with a new SQL command (in all caps) making it easy to read each part of the query.
+
+We could also write the query as a one-line string but it just isn't as readable:
+
+```js
+const query = 'SELECT * FROM books WHERE pages > 50 AND genre = "Classic" OR genre = "Sci Fi" RETURNING *;'
+```
 
 ### Testing
 Ok, last step, I promise. There are 3 different test commands:
@@ -179,21 +190,20 @@ npm run test:wa
 ```
 `test` runs all the test files, `test:wb` runs jest in "watch" mode on the basic tests, and `test:wa` runs jest in watch mode on the advanced tests. Remember, watch mode means the tests will automatically rerun whenever you save a change in one of your files. It's a pretty handy mode!
 
-### One Last Warning
-- Remember Postgres cares about quotations marks, so use `'` instead of `"` right now.
-
 ## Basic Query Questions
 
-### selectAllBooks
+### 1) selectAllBooks
 Write a query that returns all the columns on every book in the table. So essentially, your output (except the ids) should match the starter data.
 
-### selectAllTitlesAndGenres
+- Remember Postgres cares about quotations marks, so use `'` instead of `"` right now.
+
+### 2) selectAllTitlesAndGenres
 Write a query that returns only the title and genre columns on every book in the table.
 
-### selectAllBooksOver250Pages
+### 3) selectAllBooksOver250Pages
 Write a query that returns all columns on every book in the table that has more than 250 pages.
 
-### insertDuneBook
+### 4) insertDuneBook
 Write a query that inserts the following row into the table:
 
 ```bash
@@ -203,21 +213,30 @@ pages = 500,
 is_movie = false
 ```
 
-Don't forget about `RETURNING *`!
+**⚠️ Note about `RETURNING *`** (read me!)
+> On `SELECT` queries, you automatically get rows back from the database, that's the whole point of the query. However, on `UPDATE` and `INSERT`, that's not the default behavior. In order to avoid having to make a create or update query, and then *another* selector query, just add this to the end of the create queries:
+> 
+> ```SQL
+> RETURNING *;
+> ```
+> 
+> By putting this at the end of the query, you're telling the DB, "Hey, those rows you just updated/created? Please give them back to me." This is super important for us specifically because our tests are looking at what we created.
+> 
+> And it's already written for you, but `knex` will always return a `rows` array (even if there's only one result) from each query it makes. That's what we need to return for our tests. Except for `DELETE`, where you can see we use `rowCount` instead, but that's because we deleted our records!>
 
-### updateShortBooksToMovies
+### 5) updateShortBooksToMovies
 Write a query that sets `is_movie` to `true` for any book that has fewer than 150 pages.
 
 Don't forget about `RETURNING *`!
 
-### deleteDuneBook
+### 6) deleteDuneBook
 Write a query that deletes the Dune book that you just added.
 
 
 ## Advanced Query Questions
 Alright, if all your tests are passing for the basic queries, let's now try our hand at some of the more advanced things we can do with SQL.
 
-### countNumberOfBooks
+### 7) countNumberOfBooks
 Write are query that returns *just* the number of books in the table. The expected JS output from this query should be
 
 ```js
@@ -226,27 +245,27 @@ Write are query that returns *just* the number of books in the table. The expect
 
 There's a special SQL function that does just that, can you find it?
 
-### selectAllLongOrMovieBooks
+### 8) selectAllLongOrMovieBooks
 Write a query that returns all columns on all books that have *either* 250+ pages, *or* have `is_movie` set to `true`.
 
 
-### selectBooksBetween150And300Pages
+### 9) selectBooksBetween150And300Pages
 Write a query that returns all columns on all books that have more than 150 pages, but also less than 300.
 
-### orderBooksByPages
+### 10) orderBooksByPages
 Write a query that returns all columns on all books on the table, but returns them in the order of shortest to longest.
 
 Note: While you *can* order the rows array with JS, please don't. This is something SQL can do really quickly, and it will keep your code complexity down.
 
-### selectLongestBooks
+### 11) selectLongestBooks
 write a query that returns all the columns on the one book in the DB that has the most pages.
 
 Note: Again, while you can query for all the books, and then use JS to find the longest, please don't. That's called "over fetching" from the DB, we don't need all the books, just one!
 
-### aliasIsMovie
+### 12) aliasIsMovie
 Write a query that returns only the title and `is_movie` columns, but with a twist. Instead of the ugly `is_movie` name, lets alias it in the query to be called `Already Filmed`.
 
-### countBooksInGenres
+### 13) countBooksInGenres
 Write a query that returns only the count of each genre of book in the table. So the final JS output on the started data would be:
 
 ```js

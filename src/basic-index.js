@@ -15,17 +15,26 @@ const {
 } = require('./basic-queries');
 
 const main = async () => {
+  // ---- DO NOT DELETE ----
+  // Setup the tables and insert the books
   await createTable().catch(() => 'Table created');
   await insertMultipleBooks();
 
-  // Core queries, get these first
-  await selectAllBooks();
-  await selectAllTitlesAndGenres();
-  await selectAllBooksOver250Pages();
-  await insertDuneBook();
-  await updateShortBooksToMovies();
-  await deleteDuneBook();
 
+  // ---- YOUR WORK ----
+  // Core queries, get these first
+  const allBooks = await selectAllBooks();
+  const allTitlesAndGenres = await selectAllTitlesAndGenres();
+  const allLongBooks = await selectAllBooksOver250Pages();
+  const duneBook = await insertDuneBook();
+  const updatedShortMovies = await updateShortBooksToMovies();
+  const deleted = await deleteDuneBook();
+
+  // Test your functions by console logging the returned value.
+  console.log('All Books:', allBooks);
+
+
+  // ---- DO NOT DELETE ----
   // We remove the table rows (not the table) so we can run the queries again
   // without the database getting too big
   await truncate();
