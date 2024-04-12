@@ -4,7 +4,8 @@ Welcome to the world of SQL! With this assignment you'll step through some of th
 
 **Table of Contents:**
 - [Getting Started](#getting-started)
-  - [Setup](#setup)
+  - [Postgres Setup](#postgres-setup)
+  - [Knex Setup](#knex-setup)
   - [How to work on this assignment](#how-to-work-on-this-assignment)
   - [Why is the data being cleared?](#why-is-the-data-being-cleared)
   - [Writing Multiline Queries](#writing-multiline-queries)
@@ -33,11 +34,21 @@ Welcome to the world of SQL! With this assignment you'll step through some of th
 
 ## Getting Started
 
-### Setup
+### Postgres Setup
 
-In this assignment, we're using a package called [knex](https://knexjs.org) (sounds like "connect" but "conneX"). Knex is a tool that let's us execute SQL queries using JavaScript. We'll talk more about it later in the week, but for now, all you need to do is tell Knex how to connect to your Postgres database. 
+Before we begin, check out the [Postgres Setup](https://github.com/The-Marcy-Lab-School/postgres-setup) instructions. You can refer to these setup steps later if you need to change any of your Postgres settings.
 
-Let's get set up!
+Once you have set up Postgres, make sure that the Postgres server is running. 
+
+Then, connect to your Postgres server using either
+* The terminal and the `psql` command
+* TablePlus
+
+Finally, create a new database called `sql_practice`.
+
+### Knex Setup
+
+In this assignment, we're using a package called [knex](https://knexjs.org) (sounds like "connect" but "conneX"). Knex is a tool that let's us execute SQL queries using JavaScript.
 
 In order for Knex to connect to our database, we need to provide:
 
@@ -45,18 +56,19 @@ In order for Knex to connect to our database, we need to provide:
 * A username and password to connect to the database server
 * The name of the specific database we want to use
 
-See the `.env.template` file? Make a copy of it called `.env` and fill out the variables. Below are the defaults, which you may need to change. Check out the [Postgres Setup](https://github.com/The-Marcy-Lab-School/postgres-setup) instructions if you need to change any of your Postgres settings.
-
+To do this, we will provide **environment variables**. See the `.env.template` file? Make a copy of it called `.env` and fill out the variable values according to your Postgres setup. 
 
 ```bash
 PG_HOST=127.0.0.1
 PG_PORT=5432
 PG_USER='postgres'
-PG_PASSWORD='postgres'
-PG_DATABASE='postgres'
+PG_PASSWORD='your password. is it 123?'
+PG_DATABASE='sql_practice'
 ```
 
-These values are used by Knex (we'll learn exactly how later) to enable your Node.js code to connect to your Postgres database.
+**Hint: You may want to open TablePlus to identify (or create) the database that you will use for this assignment.**
+
+These values are used by Knex in your Node application to connect to your Postgres database, thus letting you send SQL queries to your database using JavaScript.
 
 Now just make sure you run `npm install` and you should be good to go!
 
